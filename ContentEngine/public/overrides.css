@@ -1,0 +1,22 @@
+/* Keep the helper concise and align every job card in the grid. */
+.helper {
+  max-width: none;
+  white-space: nowrap;
+}
+
+.jobs {
+  grid-auto-rows: 660px;
+}
+
+.job {
+  height: 660px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #b7c8bb transparent;
+}
+
+@media (max-width: 640px) {
+  .helper { white-space: normal; }
+  .jobs { grid-auto-rows: auto; }
+  .job { height: auto; }
+}

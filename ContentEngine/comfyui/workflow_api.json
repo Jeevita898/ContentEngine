@@ -1,0 +1,97 @@
+{
+  "1": {
+    "class_type": "CheckpointLoaderSimple",
+    "inputs": {
+      "ckpt_name": "sd_xl_base_1.0.safetensors"
+    },
+    "_meta": { "title": "Load SDXL Checkpoint" }
+  },
+  "2": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "premium editorial product photograph, warm natural daylight, tactile materials, realistic photography",
+      "clip": ["1", 1]
+    },
+    "_meta": { "title": "Positive Prompt" }
+  },
+  "3": {
+    "class_type": "CLIPTextEncode",
+    "inputs": {
+      "text": "blurry, low quality, watermark, text, logo, extra limbs, deformed, distorted, oversaturated, cropped",
+      "clip": ["1", 1]
+    },
+    "_meta": { "title": "Negative Prompt" }
+  },
+  "4": {
+    "class_type": "LoadImage",
+    "inputs": {
+      "image": "example.png"
+    },
+    "_meta": { "title": "Reference Image" }
+  },
+  "5": {
+    "class_type": "VAEEncode",
+    "inputs": {
+      "pixels": ["4", 0],
+      "vae": ["1", 2]
+    },
+    "_meta": { "title": "Encode Reference" }
+  },
+  "6": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 156680208700286,
+      "steps": 22,
+      "cfg": 7.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.55,
+      "model": ["1", 0],
+      "positive": ["2", 0],
+      "negative": ["3", 0],
+      "latent_image": ["5", 0]
+    },
+    "_meta": { "title": "Img2Img Sampler" }
+  },
+  "7": {
+    "class_type": "LatentUpscaleBy",
+    "inputs": {
+      "upscale_method": "bislerp",
+      "scale_by": 1.5,
+      "samples": ["6", 0]
+    },
+    "_meta": { "title": "Upscaler" }
+  },
+  "8": {
+    "class_type": "KSampler",
+    "inputs": {
+      "seed": 156680208700286,
+      "steps": 14,
+      "cfg": 7.0,
+      "sampler_name": "dpmpp_2m",
+      "scheduler": "karras",
+      "denoise": 0.35,
+      "model": ["1", 0],
+      "positive": ["2", 0],
+      "negative": ["3", 0],
+      "latent_image": ["7", 0]
+    },
+    "_meta": { "title": "Upscale Sampler (Hi-Res Fix)" }
+  },
+  "9": {
+    "class_type": "VAEDecode",
+    "inputs": {
+      "samples": ["8", 0],
+      "vae": ["1", 2]
+    },
+    "_meta": { "title": "Decode" }
+  },
+  "10": {
+    "class_type": "SaveImage",
+    "inputs": {
+      "images": ["9", 0],
+      "filename_prefix": "content_engine"
+    },
+    "_meta": { "title": "Save Output" }
+  }
+}

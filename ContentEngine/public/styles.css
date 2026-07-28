@@ -1,0 +1,120 @@
+:root{--ink:#18251f;--muted:#617069;--line:#dfe4df;--canvas:#f6f7f4;--accent:#286044;--soft:#ecf2ed;--card:#fff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--canvas);color:var(--ink);font:16px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+main{max-width:1120px;margin:0 auto;padding:64px 28px 88px}
+.hero{max-width:680px;margin-bottom:42px}
+.eyebrow,.section-kicker{margin:0;color:var(--accent);font-size:11px;font-weight:800;letter-spacing:.14em}
+.hero h1{margin:8px 0 10px;font:700 clamp(38px,6vw,60px)/1.03 Georgia,serif;letter-spacing:-.03em}
+.intro{margin:0;color:var(--muted);font-size:18px}
+.panel,.job{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:0 8px 30px rgba(24,37,31,.04)}
+.create-panel{padding:28px 30px}
+.panel-heading,.section-head{display:flex;align-items:start;justify-content:space-between;gap:22px}
+.panel-heading h2,.section-head h2{margin:2px 0 0;font:700 28px/1.15 Georgia,serif;letter-spacing:-.02em}
+.helper{max-width:260px;margin:2px 0 0;color:var(--muted);font-size:14px;text-align:right}
+form{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+label{display:grid;gap:7px;color:#34453c;font-size:13px;font-weight:750}
+label.wide,.form-action{grid-column:1/-1}
+label span{color:var(--muted);font-weight:500}
+input,textarea{width:100%;padding:12px 13px;border:1px solid #cbd4cd;border-radius:9px;background:#fcfdfb;color:var(--ink);font:inherit;outline:none}
+input:focus,textarea:focus{border-color:#57916f;box-shadow:0 0 0 3px #dcece1}
+textarea{min-height:92px;resize:vertical}
+input[type=file]{padding:9px;font-size:13px}
+.form-action{display:flex;align-items:center;gap:15px;margin-top:2px}
+button{border:0;border-radius:9px;background:var(--accent);color:#fff;padding:12px 16px;font-weight:750;cursor:pointer;transition:transform .15s,background .15s}
+button:hover{background:#1e4d35;transform:translateY(-1px)}
+button span{margin-left:6px;font-size:18px}
+#form-message{margin:0;color:var(--muted);font-size:14px}
+.jobs-section{margin-top:50px}
+.section-head{align-items:end;margin-bottom:18px}
+.section-head h2{font-size:34px}
+.section-head>span{padding:6px 10px;border-radius:999px;background:var(--soft);color:#496356;font-size:12px;font-weight:700}
+
+/* --- UNIFORM CARD GRID --- */
+.jobs{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(310px,1fr));
+  align-items:stretch;   /* default for grid, but explicit so a future edit can't silently break it */
+  gap:18px;
+}
+
+.job{
+  display:flex;
+  flex-direction:column;
+  height:100%;           /* fills the stretched grid cell */
+  padding:20px;
+  overflow:hidden;
+}
+
+.job-top{display:flex;align-items:start;justify-content:space-between;gap:14px}
+
+.job h3{
+  margin:2px 0 0;
+  font:700 23px/1.08 Georgia,serif;
+  letter-spacing:-.015em;
+  min-height:2.16em;         /* reserves space for 2 lines regardless of name length */
+  display:-webkit-box;
+  -webkit-line-clamp:2;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.job time{max-width:108px;color:var(--muted);font-size:12px;line-height:1.35;text-align:right;flex-shrink:0}
+
+.status{margin:0;color:#9b6a16;font-size:11px;font-weight:850;letter-spacing:.12em}
+.status.completed{color:#287044}
+.status.processing{color:#9b6a16}
+.status.failed,.error{color:#a63535}
+
+.description{
+  margin:18px 0 16px;
+  color:#43534a;
+  line-height:1.45;
+  min-height:calc(1.45em * 3);   /* reserves 3 lines even for short descriptions */
+  display:-webkit-box;
+  -webkit-line-clamp:3;
+  -webkit-box-orient:vertical;
+  overflow:hidden;
+}
+
+.pipeline{display:flex;justify-content:space-between;gap:4px;list-style:none;margin:0 0 16px;padding:0}
+.pipeline li{position:relative;flex:1;padding-top:20px;color:#91a098;font-size:10px;font-weight:700;line-height:1.15;text-align:center}
+.pipeline li::before{content:"";position:absolute;z-index:1;top:4px;left:50%;width:10px;height:10px;border:2px solid #cbd4cd;border-radius:50%;background:#fff;transform:translateX(-50%)}
+.pipeline li:not(:last-child)::after{content:"";position:absolute;top:9px;left:50%;width:100%;height:2px;background:#dfe5e0}
+.pipeline li.done{color:#376c4f}
+.pipeline li.done::before{border-color:#2d6f4c;background:#2d6f4c}
+.pipeline li.done:not(:last-child)::after{background:#8bb89b}
+.pipeline li.current::before{box-shadow:0 0 0 4px #dcece1}
+.pipeline li.current{color:#1e5638}
+
+.result{
+  display:block;
+  width:100%;
+  aspect-ratio:4/3;     /* crops the 1200x800 (3:2) placeholder consistently via object-fit */
+  object-fit:cover;
+  border-radius:11px;
+  background:#edf0eb;
+  border:1px solid #e4e8e4;
+}
+
+details{margin-top:15px;border-top:1px solid #edf0ec;padding-top:12px}
+summary{color:#4a5b51;font-size:13px;font-weight:700;cursor:pointer}
+.prompt{margin:10px 0 0;color:var(--muted);font-size:12px;line-height:1.5}
+.error{margin:12px 0 0;font-size:13px}
+
+/* keep the footer area (details / error) pinned to the bottom so all cards' images align */
+.job > details,
+.job > .error{margin-top:auto}
+
+.empty{grid-column:1/-1;margin:0;padding:30px;border:1px dashed #cbd4cd;border-radius:14px;color:var(--muted);text-align:center}
+
+@media (max-width:640px){
+  main{padding:40px 18px 60px}
+  .create-panel{padding:22px}
+  .panel-heading{display:block}
+  .helper{text-align:left;margin-top:10px}
+  form{grid-template-columns:1fr}
+  .form-action{grid-column:auto;align-items:flex-start;flex-direction:column}
+  .section-head>span{display:none}
+  .jobs{grid-template-columns:1fr}
+  .pipeline li{font-size:9px}
+}
